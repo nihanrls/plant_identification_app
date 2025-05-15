@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from werkzeug.utils import secure_filename
 import os
+import time
 
 upload_bp = Blueprint("upload", __name__)
 
@@ -25,7 +26,9 @@ def upload_file():
         return jsonify({"error": "Dosya seçilmedi"}), 400
     
     if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
+        original_filename = secure_filename(file.filename)
+        timestamp = int(time.time())
+        filename = f"{timestamp}_{original_filename}"
         save_path = os.path.join(UPLOAD_FOLDER, filename)
         file.save(save_path)
         
