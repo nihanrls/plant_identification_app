@@ -5,6 +5,7 @@ import os
 upload_bp = Blueprint("upload", __name__)
 
 UPLOAD_FOLDER = "uploads"
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
 
 
@@ -13,6 +14,7 @@ def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @upload_bp.route("/upload", methods = ["POST"])
+
 def upload_file():
     if "file" not in request.files:
         return jsonify({"error": "Dosya gönderilmedi"}), 400
