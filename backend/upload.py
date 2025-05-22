@@ -1,5 +1,5 @@
 from plant import Plant
-from app import db
+from extensions import db
 from flask import Blueprint, request, jsonify
 from werkzeug.utils import secure_filename
 import os
@@ -30,17 +30,19 @@ def upload_file():
     if file and allowed_file(file.filename):
         save_path, filename = save_uploaded_file(file, UPLOAD_FOLDER)
 
-        plant_name = identify_plant(save_path)
+        plant_data = identify_plant(save_path)
 
-        if plant_name:
-            common_name = plant_name["results"][0]["species"].get("commonNames", [None])[0] or "Common Name Unknown"
+        if plant_data and plant_data.get("results"):
+            result = plant_data["results"][0]
+            species = result["species"]
             
-            scientific_name = plant_name["results"][0]["species"]["scientificNameWithoutAuthor"]
+            common_name = species.get("commonNames", [None])[0] or "Common Name Unknown"
+            scientific_name = species["scientificNameWithoutAuthor"]
 
             watering, environment = generate_plant_care(scientific_name, common_name)
             
             new_plant = Plant(
-                scientific_name=plant_name,
+                scientific_name=scientific_name,
                 common_name=common_name,
                 watering=watering,
                 environment=environment,

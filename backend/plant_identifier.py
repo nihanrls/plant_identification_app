@@ -22,5 +22,5 @@ def identify_plant(image_path):
     if response.status_code == 200:
         result = response.json()
         if result.get("results"):
-            return result["results"][0]["species"]["scientificNameWithoutAuthor"]
+            return result
     return None
