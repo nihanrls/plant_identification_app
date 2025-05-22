@@ -6,6 +6,7 @@ import requests
 from dotenv import load_dotenv
 from file_handler import allowed_file, save_uploaded_file
 from plant_identifier import identify_plant
+from plant import Plant
 
 load_dotenv()
 

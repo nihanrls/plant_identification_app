@@ -1,12 +1,30 @@
 from flask import Flask
-from upload import upload_bp
+from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
+import os
 
-app = Flask(__name__)
-app.register_blueprint(upload_bp)
+from config import Config
 
-@app.route("/")
-def home():
-    return "Welcome to the Plant Recognition Application"
+load_dotenv()
+
+db = SQLAlchemy()
+
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object(Config)
+
+    db.init_app(app)
+
+    from upload import upload_bp
+    app.register_blueprint(upload_bp)
+
+    @app.route("/")
+    def home():
+        return "Welcome to the Plant Recognition Application"
+
+    return app
+
+app = create_app()
 
 if __name__ == "__main__":
-    app.run(debug = True)
+    app.run(debug=True)
