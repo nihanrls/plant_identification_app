@@ -1,3 +1,5 @@
+from plant import Plant
+from app import db
 from flask import Blueprint, request, jsonify
 from werkzeug.utils import secure_filename
 import os
@@ -6,7 +8,7 @@ import requests
 from dotenv import load_dotenv
 from file_handler import allowed_file, save_uploaded_file
 from plant_identifier import identify_plant
-from plant import Plant
+from care_generator import generate_plant_care
 
 load_dotenv()
 
@@ -31,10 +33,30 @@ def upload_file():
         plant_name = identify_plant(save_path)
 
         if plant_name:
+            common_name = plant_name["results"][0]["species"].get("commonNames", [None])[0] or "Common Name Unknown"
+            
+            scientific_name = plant_name["results"][0]["species"]["scientificNameWithoutAuthor"]
+
+            watering, environment = generate_plant_care(scientific_name, common_name)
+            
+            new_plant = Plant(
+                scientific_name=plant_name,
+                common_name=common_name,
+                watering=watering,
+                environment=environment,
+                image_filename=filename
+            )
+
+            db.session.add(new_plant)
+            db.session.commit()
+            
             return jsonify({
                 "message": "Image uploaded and recognized successfully",
                 "filename": filename,
-                "plant_name": plant_name
+                "plant_name": scientific_name,
+                "common_name": common_name,
+                "watering": watering,
+                "environment": environment
             }), 200
         else:
             return jsonify({

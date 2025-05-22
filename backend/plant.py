@@ -1,4 +1,4 @@
-from backend.app import db
+from app import db
 
 class Plant(db.Model):
     __tablename__ = "plants"
@@ -15,7 +15,4 @@ class Plant(db.Model):
         self.common_name = common_name.strip().title() if common_name else "Common Name Unknown"
         self.watering = watering.strip() if watering else "Could not reach watering information"
         self.environment = environment.strip() if environment else "Could not reach environment information"
-        self.image_filename = image_filename if image_filename else "unknown image"
-        
-    
-        
+        self.image_filename = image_filename if image_filename else "unknown image"       
