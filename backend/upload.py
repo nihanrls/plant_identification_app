@@ -4,8 +4,8 @@ import os
 import time
 import requests
 from dotenv import load_dotenv
-from utils.file_handler import allowed_file, save_uploaded_file
-from services.plant_identifier import identify_plant
+from file_handler import allowed_file, save_uploaded_file
+from plant_identifier import identify_plant
 
 load_dotenv()
 
