@@ -13,7 +13,7 @@ load_dotenv()
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
-    app.config['DEBUG'] = True  # Enable debug mode
+    app.config['DEBUG'] = True
     CORS(app)
 
     db.init_app(app)
