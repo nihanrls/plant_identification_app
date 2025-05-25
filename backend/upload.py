@@ -36,17 +36,26 @@ def upload_file():
             result = plant_data["results"][0]
             species = result["species"]
             
-            common_name = species.get("commonNames", [None])[0] or "Common Name Unknown"
             scientific_name = species["scientificNameWithoutAuthor"]
+            common_name = species.get("commonNames", [None])[0] or "Common Name Unknown"
 
-            watering, environment = generate_plant_care(scientific_name, common_name)
+            new_common_name, watering, environment = generate_plant_care(scientific_name, common_name)
+            
+            # Hastalık bilgisini al
+            disease_info = result.get("disease", {})
+            disease_name = disease_info.get("name") if disease_info else None
+            disease_probability = disease_info.get("probability") if disease_info else None
+            disease_details = disease_info.get("details") if disease_info else None
             
             new_plant = Plant(
                 scientific_name=scientific_name,
-                common_name=common_name,
+                common_name=new_common_name or common_name,
                 watering=watering,
                 environment=environment,
-                image_filename=filename
+                image_filename=filename,
+                disease_name=disease_name,
+                disease_probability=disease_probability,
+                disease_details=disease_details
             )
 
             db.session.add(new_plant)
@@ -56,9 +65,14 @@ def upload_file():
                 "message": "Image uploaded and recognized successfully",
                 "filename": filename,
                 "plant_name": scientific_name,
-                "common_name": common_name,
+                "common_name": new_common_name or common_name,
                 "watering": watering,
-                "environment": environment
+                "environment": environment,
+                "disease": {
+                    "name": disease_name,
+                    "probability": disease_probability,
+                    "details": disease_details
+                } if disease_name else None
             }), 200
         else:
             return jsonify({

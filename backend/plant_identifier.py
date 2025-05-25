@@ -4,23 +4,74 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-PLANETNET_API_KEY = os.getenv("PLANTNET_API_KEY")
-PLANETNET_API_URL = "https://my-api.plantnet.org/v2/identify/all"
+PLANT_ID_API_KEY = os.getenv("PLANT_ID_API_KEY")
+PLANT_ID_API_URL = "https://plant.id/api/v3/identification"
 
 def identify_plant(image_path):
-    with open(image_path, "rb") as img:
-        files = {"images": img}
-        data = {
-            "organs": "leaf",
+    try:
+        print(f"Starting plant identification for image: {image_path}")
+        
+        with open(image_path, "rb") as image_file:
+            content = image_file.read()
+            import base64
+            image_content = base64.b64encode(content).decode('utf-8')
+            print(f"Image converted to base64, length: {len(image_content)}")
+
+        request_data = {
+            "images": [image_content],
+            "latitude": 49.1951239,
+            "longitude": 16.6077111,
+            "similar_images": True,
+            "health": "all"
         }
+
+        print(f"Sending request to Plant.id API...")
         response = requests.post(
-            f"{PLANETNET_API_URL}?api-key={PLANETNET_API_KEY}",
-            files=files,
-            data=data
+            PLANT_ID_API_URL,
+            json=request_data,
+            headers={
+                "Api-Key": PLANT_ID_API_KEY,
+                "Content-Type": "application/json"
+            }
         )
 
-    if response.status_code == 200:
-        result = response.json()
-        if result.get("results"):
-            return result
-    return None
+        print(f"API Response Status Code: {response.status_code}")
+        print(f"API Response Headers: {response.headers}")
+        print(f"API Response Body: {response.text}")
+
+        if response.status_code in [200, 201]:
+            result = response.json()
+            if result.get("result") and result["result"].get("classification"):
+                best_match = result["result"]["classification"]["suggestions"][0]
+                print(f"Best match found: {best_match}")
+                
+                disease_info = None
+                if result.get("result", {}).get("health", {}).get("diseases"):
+                    disease_suggestions = result["result"]["health"]["diseases"]
+                    if disease_suggestions:
+                        disease_info = {
+                            "name": disease_suggestions[0].get("name", "Unknown"),
+                            "probability": disease_suggestions[0].get("probability", 0),
+                            "details": disease_suggestions[0].get("description", "No details available")
+                        }
+                
+                return {
+                    "results": [{
+                        "species": {
+                            "scientificNameWithoutAuthor": best_match["name"],
+                            "commonNames": [best_match.get("common_names", [best_match["name"]])[0]]
+                        },
+                        "score": best_match["probability"],
+                        "disease": disease_info
+                    }]
+                }
+            else:
+                print("No classification results found in API response")
+        else:
+            print(f"API request failed with status code: {response.status_code}")
+        
+        return None
+
+    except Exception as e:
+        print(f"Error in plant identification: {str(e)}")
+        return None
