@@ -10,4 +10,5 @@ export interface Plant {
   created_at: string;
   updated_at: string;
   image_filename: string;
+  name?: string;
 } 

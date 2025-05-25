@@ -24,13 +24,11 @@ const Home = () => {
     loadPlants();
   }, []);
 
-  const recentPlants = [...plants].reverse().slice(0, 4);
+  const recentPlants = [...plants].slice(0, 4);
 
   return (
     <div className="container mx-auto px-4 py-8">
       <DashboardHeader />
-
-      {/* Recent Plants Section */}
       <div className="mt-8">
         <h2 className="text-2xl font-semibold mb-6">Recently Added Plants</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -40,7 +38,7 @@ const Home = () => {
             recentPlants.map((plant) => (
               <PlantCard
                 key={plant.id}
-                name={plant.common_name}
+                name={plant.common_name || plant.name || ''}
                 image={plant.image_filename}
                 desc={plant.scientific_name}
               />
