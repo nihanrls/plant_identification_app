@@ -36,7 +36,7 @@ def create_app():
     @app.route('/api/plants/', methods=['GET'])
     def get_plants():
         try:
-            plants = Plant.query.order_by(Plant.id.desc()).limit(4).all()
+            plants = Plant.query.order_by(Plant.id.desc()).all()
             
             plant_list = []
             for plant in plants:
@@ -90,4 +90,4 @@ app = create_app()
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(debug=True, port=8000)
+    app.run(debug=True, port=5000)

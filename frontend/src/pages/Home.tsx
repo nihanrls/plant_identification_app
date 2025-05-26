@@ -49,7 +49,6 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Upcoming Events Section */}
       <div className="mt-8">
         <h2 className="text-2xl font-semibold mb-6">Upcoming Events</h2>
         <CalendarWidget />
