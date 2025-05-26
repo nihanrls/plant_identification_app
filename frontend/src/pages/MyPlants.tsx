@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Plant, plantService } from '../services/plantService';
+import PlantList from '../components/Plants/PlantList';
+import LoadingSpinner from '../components/Common/LoadingSpinner';
+import ErrorMessage from '../components/Common/ErrorMessage';
+import PageHeader from '../components/Common/PageHeader';
 
 const MyPlants: React.FC = () => {
   const [plants, setPlants] = useState<Plant[]>([]);
@@ -36,98 +40,40 @@ const MyPlants: React.FC = () => {
     }
   };
 
+  const handleViewDetails = (id: number) => {
+    // TODO: Implement view details functionality
+    console.log('View details for plant:', id);
+  };
+
+  const handleAddPlant = () => {
+    // TODO: Implement add plant functionality
+    console.log('Add new plant');
+  };
+
   if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
   if (error) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="text-red-500 text-center">
-          <p className="text-xl font-semibold">{error}</p>
-          <button
-            onClick={fetchPlants}
-            className="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
-          >
-            Try Again
-          </button>
-        </div>
-      </div>
-    );
+    return <ErrorMessage message={error} onRetry={fetchPlants} />;
   }
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">My Plants</h1>
-        <button
-          onClick={() => {/* TODO: Implement add plant functionality */}}
-          className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
-        >
-          Add New Plant
-        </button>
-      </div>
+      <PageHeader
+        title="My Plants"
+        actionButton={{
+          label: 'Add New Plant',
+          onClick: handleAddPlant,
+        }}
+      />
 
-      {plants.length === 0 ? (
-        <div className="text-center py-12">
-          <p className="text-gray-600 text-lg">You haven't added any plants yet.</p>
-          <button
-            onClick={() => {/* TODO: Implement add plant functionality */}}
-            className="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
-          >
-            Add Your First Plant
-          </button>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {plants.map((plant) => (
-            <div
-              key={plant.id}
-              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
-            >
-              <img
-                src={`http://localhost:5000/uploads/${plant.image_filename}`}
-                alt={plant.name}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-4">
-                <h2 className="text-xl font-semibold text-gray-800 mb-2">
-                  {plant.name}
-                </h2>
-                <p className="text-sm text-gray-600 italic mb-2">
-                  {plant.scientific_name}
-                </p>
-                <div className="space-y-2 mb-4">
-                  <p className="text-gray-700">
-                    <span className="font-medium">Watering:</span> {plant.watering}
-                  </p>
-                  <p className="text-gray-700">
-                    <span className="font-medium">Environment:</span> {plant.environment}
-                  </p>
-                </div>
-                <div className="flex justify-between items-center">
-                  <button
-                    onClick={() => {/* TODO: Implement view details */}}
-                    className="text-green-600 hover:text-green-700 font-medium"
-                  >
-                    View Details
-                  </button>
-                  <button
-                    onClick={() => handleDelete(plant.id)}
-                    className="text-red-600 hover:text-red-700 font-medium"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+      <PlantList
+        plants={plants}
+        onDelete={handleDelete}
+        onViewDetails={handleViewDetails}
+        onAddPlant={handleAddPlant}
+      />
     </div>
   );
 };
