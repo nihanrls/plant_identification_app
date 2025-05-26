@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Plant, plantService } from '../services/plantService';
 import PlantList from '../components/Plants/PlantList';
 import LoadingSpinner from '../components/Common/LoadingSpinner';
@@ -6,6 +7,7 @@ import ErrorMessage from '../components/Common/ErrorMessage';
 import PageHeader from '../components/Common/PageHeader';
 
 const MyPlants: React.FC = () => {
+  const navigate = useNavigate();
   const [plants, setPlants] = useState<Plant[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -46,8 +48,7 @@ const MyPlants: React.FC = () => {
   };
 
   const handleAddPlant = () => {
-    // TODO: Implement add plant functionality
-    console.log('Add new plant');
+    navigate('/identify');
   };
 
   if (loading) {
