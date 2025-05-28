@@ -4,6 +4,10 @@ import { Plant, plantService } from '../services/plantService';
 import LoadingSpinner from '../components/Common/LoadingSpinner';
 import ErrorMessage from '../components/Common/ErrorMessage';
 import { toSlug } from '../utils/stringUtils';
+import BackButton from '../components/Common/BackButton';
+import PlantImage from '../components/Plants/PlantImage';
+import CareInstructions from '../components/Plants/CareInstructions';
+import HealthStatus from '../components/Plants/HealthStatus';
 
 const PlantDetails: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -49,76 +53,30 @@ const PlantDetails: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <button
-        onClick={handleBack}
-        className="mb-6 text-green-600 hover:text-green-700 flex items-center"
-      >
-        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-        </svg>
-        Back to My Plants
-      </button>
+      <BackButton onClick={handleBack} label="Back to My Plants" />
 
       <div className="bg-white rounded-xl shadow-lg overflow-hidden">
         <div className="md:flex">
-          <div className="md:w-1/2">
-            <img
-              src={`http://127.0.0.1:5000/uploads/${plant.image_filename}`}
-              alt={plant.name}
-              className="w-full h-96 object-cover"
-            />
-          </div>
+          <PlantImage
+            imageFilename={plant.image_filename}
+            plantName={plant.name}
+          />
+          
           <div className="md:w-1/2 p-8">
             <h1 className="text-3xl font-bold text-green-800 mb-2">{plant.name}</h1>
             <p className="text-lg text-green-700 italic mb-6">{plant.scientific_name}</p>
             
             <div className="space-y-6">
-              <div>
-                <h2 className="text-xl font-semibold text-gray-800 mb-2">Care Instructions</h2>
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="text-lg font-medium text-gray-700 mb-1">Watering</h3>
-                    <p className="text-gray-600">{plant.watering}</p>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-medium text-gray-700 mb-1">Environment</h3>
-                    <p className="text-gray-600">{plant.environment}</p>
-                  </div>
-                </div>
-              </div>
+              <CareInstructions
+                watering={plant.watering}
+                environment={plant.environment}
+              />
 
-              <div className="mt-8 p-4 rounded-lg border">
-                <h2 className="text-xl font-semibold mb-2">Health Status</h2>
-                {plant.disease_name ? (
-                  <div className="space-y-3">
-                    <div>
-                      <h3 className="text-lg font-medium text-red-700 mb-1">Detected Disease</h3>
-                      <p className="text-red-600">{plant.disease_name}</p>
-                    </div>
-                    {plant.disease_probability && (
-                      <div>
-                        <h3 className="text-lg font-medium text-red-700 mb-1">Confidence</h3>
-                        <p className="text-red-600">
-                          {(plant.disease_probability * 100).toFixed(1)}% probability
-                        </p>
-                      </div>
-                    )}
-                    {plant.disease_details && (
-                      <div>
-                        <h3 className="text-lg font-medium text-red-700 mb-1">Details</h3>
-                        <p className="text-red-600">{plant.disease_details}</p>
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <div className="flex items-center space-x-2 text-green-600">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <p className="text-lg">No diseases detected. Your plant appears to be healthy!</p>
-                  </div>
-                )}
-              </div>
+              <HealthStatus
+                diseaseName={plant.disease_name}
+                diseaseProbability={plant.disease_probability}
+                diseaseDetails={plant.disease_details}
+              />
             </div>
           </div>
         </div>
