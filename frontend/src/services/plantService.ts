@@ -9,6 +9,9 @@ export interface Plant {
   image_filename: string;
   watering: string;
   environment: string;
+  disease_name?: string;
+  disease_probability?: number;
+  disease_details?: string;
 }
 
 export const plantService = {
