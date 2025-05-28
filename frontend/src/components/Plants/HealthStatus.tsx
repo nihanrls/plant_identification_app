@@ -17,7 +17,7 @@ const HealthStatus: React.FC<HealthStatusProps> = ({
       {diseaseName ? (
         <div className="space-y-3">
           <div>
-            <h3 className="text-lg font-medium text-red-700 mb-1">Detected Disease</h3>
+            <h3 className="text-lg font-medium text-red-700 mb-1">Detected Disease, Please consult a professional</h3>
             <p className="text-red-600">{diseaseName}</p>
           </div>
           {diseaseProbability && (
