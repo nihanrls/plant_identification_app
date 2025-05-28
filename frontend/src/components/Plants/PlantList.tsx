@@ -5,14 +5,12 @@ import EmptyPlantList from './EmptyPlantList';
 
 interface PlantListProps {
   plants: Plant[];
-  onDelete: (id: number) => void;
   onViewDetails: (id: number) => void;
   onAddPlant: () => void;
 }
 
 const PlantList: React.FC<PlantListProps> = ({
   plants,
-  onDelete,
   onViewDetails,
   onAddPlant,
 }) => {
@@ -26,7 +24,6 @@ const PlantList: React.FC<PlantListProps> = ({
         <PlantCard
           key={plant.id}
           plant={plant}
-          onDelete={onDelete}
           onViewDetails={onViewDetails}
         />
       ))}

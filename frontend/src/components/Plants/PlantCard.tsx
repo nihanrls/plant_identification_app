@@ -6,11 +6,10 @@ import PlantActions from './PlantActions';
 
 interface PlantCardProps {
   plant: Plant;
-  onDelete: (id: number) => void;
   onViewDetails: (id: number) => void;
 }
 
-const PlantCard: React.FC<PlantCardProps> = ({ plant, onDelete, onViewDetails }) => {
+const PlantCard: React.FC<PlantCardProps> = ({ plant, onViewDetails }) => {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
       <PlantImage
@@ -25,7 +24,6 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onDelete, onViewDetails })
       />
       <PlantActions
         onViewDetails={() => onViewDetails(plant.id)}
-        onDelete={() => onDelete(plant.id)}
       />
     </div>
   );

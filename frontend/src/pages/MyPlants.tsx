@@ -30,18 +30,6 @@ const MyPlants: React.FC = () => {
     }
   };
 
-  const handleDelete = async (id: number) => {
-    if (window.confirm('Are you sure you want to delete this plant?')) {
-      try {
-        await plantService.deletePlant(id);
-        setPlants(plants.filter(plant => plant.id !== id));
-      } catch (err) {
-        console.error('Error deleting plant:', err);
-        alert('Failed to delete plant. Please try again.');
-      }
-    }
-  };
-
   const handleViewDetails = (id: number) => {
     // TODO: Implement view details functionality
     console.log('View details for plant:', id);
@@ -71,7 +59,6 @@ const MyPlants: React.FC = () => {
 
       <PlantList
         plants={plants}
-        onDelete={handleDelete}
         onViewDetails={handleViewDetails}
         onAddPlant={handleAddPlant}
       />
