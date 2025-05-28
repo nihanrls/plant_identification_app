@@ -5,6 +5,7 @@ import PlantList from '../components/Plants/PlantList';
 import LoadingSpinner from '../components/Common/LoadingSpinner';
 import ErrorMessage from '../components/Common/ErrorMessage';
 import PageHeader from '../components/Common/PageHeader';
+import { toSlug } from '../utils/stringUtils';
 
 const MyPlants: React.FC = () => {
   const navigate = useNavigate();
@@ -31,8 +32,10 @@ const MyPlants: React.FC = () => {
   };
 
   const handleViewDetails = (id: number) => {
-    // TODO: Implement view details functionality
-    console.log('View details for plant:', id);
+    const plant = plants.find(p => p.id === id);
+    if (plant) {
+      navigate(`/plants/${toSlug(plant.name)}`);
+    }
   };
 
   const handleAddPlant = () => {

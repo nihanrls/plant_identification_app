@@ -6,6 +6,7 @@ import Identify from './pages/Identify';
 import Calendar from './pages/Calendar';
 import Help from './pages/Help';
 import MyPlants from './pages/MyPlants';
+import PlantDetails from './pages/PlantDetails';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/help" element={<Help />} />
           <Route path="/my-plants" element={<MyPlants />} />
+          <Route path="/plants/:slug" element={<PlantDetails />} />
         </Routes>
       </MainLayout>
     </Router>
