@@ -62,7 +62,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           </Drawer>
         </>
       ) : (
-        <Sidebar />
+      <Sidebar />
       )}
       <main className="flex-1 overflow-y-auto">
         {children}

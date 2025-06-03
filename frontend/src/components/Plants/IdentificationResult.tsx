@@ -1,7 +1,7 @@
 import React from 'react';
 import { Plant } from '../../services/plantService';
 import CareInstructions from './CareInstructions';
-import HealthStatus from './HealthStatus';
+
 
 interface IdentificationResultProps {
   plant: Plant;
@@ -37,11 +37,6 @@ const IdentificationResult: React.FC<IdentificationResultProps> = ({
               environment={plant.environment}
             />
 
-            <HealthStatus
-              diseaseName={plant.disease_name}
-              diseaseProbability={plant.disease_probability}
-              diseaseDetails={plant.disease_details}
-            />
 
             <button
               onClick={onAddToCollection}

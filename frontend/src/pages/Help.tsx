@@ -65,7 +65,7 @@ const Help: React.FC = () => {
             </ListItemIcon>
             <ListItemText
               primary="Plant Identification"
-              secondary="Click the 'Identify Plant' button on the home page or use the camera icon to take a photo or upload an image from your gallery. The system will automatically identify the plant and show the results."
+              secondary="Click the 'Identify Plant' button on the home page or use the camera icon to upload an image from your gallery. The system will automatically identify the plant and show the results."
               primaryTypographyProps={{
                 sx: { fontFamily: 'Poppins, sans-serif', fontWeight: 500 }
               }}
@@ -232,8 +232,7 @@ const Help: React.FC = () => {
             <Typography sx={{ fontFamily: 'Poppins, sans-serif' }}>
               Plant information is generated using advanced AI technology. Our system analyzes plant characteristics 
               and provides detailed information about each plant, including its scientific name, common name, 
-              family, and basic features. The AI model has been trained on extensive botanical data to ensure 
-              accurate and reliable information.
+              family, and basic features.
             </Typography>
           </AccordionDetails>
         </Accordion>

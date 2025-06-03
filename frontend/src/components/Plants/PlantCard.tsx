@@ -27,7 +27,7 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onViewDetails }) => {
     if (!filename) return '/placeholder-plant.jpg';
     return `http://127.0.0.1:5000/uploads/${filename}`;
   };
-
+  
   return (
     <Card 
       sx={{ 

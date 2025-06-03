@@ -7,7 +7,6 @@ import { toSlug } from '../utils/stringUtils';
 import BackButton from '../components/Common/BackButton';
 import PlantImage from '../components/Plants/PlantImage';
 import CareInstructions from '../components/Plants/CareInstructions';
-import HealthStatus from '../components/Plants/HealthStatus';
 
 const PlantDetails: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -70,12 +69,6 @@ const PlantDetails: React.FC = () => {
               <CareInstructions
                 watering={plant.watering}
                 environment={plant.environment}
-              />
-
-              <HealthStatus
-                diseaseName={plant.disease_name}
-                diseaseProbability={plant.disease_probability}
-                diseaseDetails={plant.disease_details}
               />
             </div>
           </div>

@@ -21,8 +21,7 @@ def identify_plant(image_path):
             "images": [image_content],
             "latitude": 49.1951239,
             "longitude": 16.6077111,
-            "similar_images": True,
-            "health": "all"
+            "similar_images": True
         }
 
         print(f"Sending request to Plant.id API...")
@@ -45,24 +44,13 @@ def identify_plant(image_path):
                 best_match = result["result"]["classification"]["suggestions"][0]
                 print(f"Best match found: {best_match}")
                 
-                disease_info = None
-                if result.get("result", {}).get("health", {}).get("diseases"):
-                    disease_suggestions = result["result"]["health"]["diseases"]
-                    if disease_suggestions:
-                        disease_info = {
-                            "name": disease_suggestions[0].get("name", "Unknown"),
-                            "probability": disease_suggestions[0].get("probability", 0),
-                            "details": disease_suggestions[0].get("description", "No details available")
-                        }
-                
                 return {
                     "results": [{
                         "species": {
                             "scientificNameWithoutAuthor": best_match["name"],
                             "commonNames": [best_match.get("common_names", [best_match["name"]])[0]]
                         },
-                        "score": best_match["probability"],
-                        "disease": disease_info
+                        "score": best_match["probability"]
                     }]
                 }
             else:

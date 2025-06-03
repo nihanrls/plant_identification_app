@@ -52,18 +52,18 @@ function App() {
     <ThemeProvider theme={theme}>
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={tr}>
         <FavoritesProvider>
-          <Router>
-            <MainLayout>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/identify" element={<Identify />} />
-                <Route path="/calendar" element={<Calendar />} />
-                <Route path="/help" element={<Help />} />
-                <Route path="/my-plants" element={<MyPlants />} />
-                <Route path="/plants/:slug" element={<PlantDetails />} />
-              </Routes>
-            </MainLayout>
-          </Router>
+    <Router>
+      <MainLayout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/identify" element={<Identify />} />
+          <Route path="/calendar" element={<Calendar />} />
+          <Route path="/help" element={<Help />} />
+          <Route path="/my-plants" element={<MyPlants />} />
+          <Route path="/plants/:slug" element={<PlantDetails />} />
+        </Routes>
+      </MainLayout>
+    </Router>
         </FavoritesProvider>
       </LocalizationProvider>
     </ThemeProvider>
