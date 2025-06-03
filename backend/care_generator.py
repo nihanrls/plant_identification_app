@@ -29,13 +29,12 @@ def generate_plant_care(scientific_name, common_name):
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
-                {"role": "system", "content": "You are a plant care expert. Provide clear, concise information."},
-                {"role": "user", "content": prompt}
+                {"role": "system", "content": "Sen bir bitki bakım uzmanısın. Verilen bitki için detaylı bakım talimatları sunacaksın."},
+                {"role": "user", "content": f"{scientific_name} bitkisinin bakımı hakkında detaylı bilgi ver. Sulama, güneş ışığı, toprak ve genel bakım talimatlarını içermeli."}
             ],
-            max_tokens=200,
             temperature=0.7,
+            max_tokens=500
         )
-
         text = response.choices[0].message.content
         print(f"\nOpenAI Response received: {text}")
         
