@@ -24,8 +24,8 @@ export default function SidebarItem({ icon, label, active, path }: SidebarItemPr
           : 'hover:bg-accent text-green-900'
       }`}
     >
-      <span className="text-xl">{icon}</span>
-      <span>{label}</span>
+      <span className="text-xl min-w-[24px] text-center">{icon}</span>
+      <span className="text-sm md:text-base">{label}</span>
     </div>
   );
 }

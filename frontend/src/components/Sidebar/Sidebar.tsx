@@ -11,7 +11,10 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="w-64 bg-primary rounded-xl m-4 p-6 flex flex-col shadow-lg">
+    <aside className="w-64 h-full bg-primary rounded-xl m-4 p-6 flex flex-col shadow-lg">
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold text-green-800">Plant Care</h1>
+      </div>
       <nav className="flex-1">
         <SidebarItem 
           icon="🏠" 

@@ -1,11 +1,11 @@
 import os
-import openai
+from openai import OpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
-print(f"OpenAI API Key loaded: {'Yes' if openai.api_key else 'No'}")
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+print(f"OpenAI API Key loaded: {'Yes' if os.getenv('OPENAI_API_KEY') else 'No'}")
 
 def generate_plant_care(scientific_name, common_name):
     print(f"\n=== Starting plant care generation ===")
@@ -26,7 +26,7 @@ def generate_plant_care(scientific_name, common_name):
 
     try:
         print("\nSending request to OpenAI API...")
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are a plant care expert. Provide clear, concise information."},
@@ -68,8 +68,8 @@ def generate_plant_care(scientific_name, common_name):
         
         if "api_key" in str(e).lower():
             print("\nAPI Key Error Details:")
-            print(f"API Key exists: {'Yes' if openai.api_key else 'No'}")
-            print(f"API Key length: {len(openai.api_key) if openai.api_key else 0}")
-            print(f"API Key starts with: {openai.api_key[:8] + '...' if openai.api_key else 'None'}")
+            print(f"API Key exists: {'Yes' if os.getenv('OPENAI_API_KEY') else 'No'}")
+            print(f"API Key length: {len(os.getenv('OPENAI_API_KEY', ''))}")
+            print(f"API Key starts with: {os.getenv('OPENAI_API_KEY', '')[:8] + '...' if os.getenv('OPENAI_API_KEY') else 'None'}")
         
         return common_name, "Could not retrieve watering information.", "Could not retrieve environment information."

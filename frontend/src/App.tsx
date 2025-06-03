@@ -4,6 +4,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { tr } from 'date-fns/locale';
+import { FavoritesProvider } from './contexts/FavoritesContext';
 import MainLayout from './components/Layout/MainLayout';
 import Home from './pages/Home';
 import Identify from './pages/Identify';
@@ -50,18 +51,20 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={tr}>
-        <Router>
-          <MainLayout>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/identify" element={<Identify />} />
-              <Route path="/calendar" element={<Calendar />} />
-              <Route path="/help" element={<Help />} />
-              <Route path="/my-plants" element={<MyPlants />} />
-              <Route path="/plants/:slug" element={<PlantDetails />} />
-            </Routes>
-          </MainLayout>
-        </Router>
+        <FavoritesProvider>
+          <Router>
+            <MainLayout>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/identify" element={<Identify />} />
+                <Route path="/calendar" element={<Calendar />} />
+                <Route path="/help" element={<Help />} />
+                <Route path="/my-plants" element={<MyPlants />} />
+                <Route path="/plants/:slug" element={<PlantDetails />} />
+              </Routes>
+            </MainLayout>
+          </Router>
+        </FavoritesProvider>
       </LocalizationProvider>
     </ThemeProvider>
   );
