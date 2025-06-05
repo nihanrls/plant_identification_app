@@ -28,6 +28,19 @@ const Home = () => {
 
   const recentPlants = [...plants].slice(0, 4);
 
+  const EmptyPlantsMessage = () => (
+    <div className="text-center text-green-700">
+      No plants found.{' '}
+      <span 
+        className="text-green-600 font-semibold cursor-pointer hover:text-green-800 hover:underline"
+        onClick={() => navigate('/identify')}
+      >
+        Click here
+      </span>
+      {' '}to add your first plant!
+    </div>
+  );
+
   return (
     <div className="container mx-auto px-4 py-8">
       <DashboardHeader />
@@ -46,7 +59,7 @@ const Home = () => {
               />
             ))
           ) : (
-            <div>No plants found</div>
+            <EmptyPlantsMessage />
           )}
         </div>
       </div>
