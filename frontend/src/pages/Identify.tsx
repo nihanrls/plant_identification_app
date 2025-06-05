@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plant, plantService } from '../services/plantService';
+import { Plant } from '../types/plant';
+import { plantService } from '../services/plantService';
 import IdentifyHeader from '../components/Plants/IdentifyHeader';
 import IdentifyUploadSection from '../components/Plants/IdentifyUploadSection';
 import IdentificationResult from '../components/Plants/IdentificationResult';

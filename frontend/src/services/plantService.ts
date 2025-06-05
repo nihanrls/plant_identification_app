@@ -1,15 +1,7 @@
 import axios from 'axios';
+import { Plant } from '../types/plant';
 
 const API_URL = 'http://127.0.0.1:5000/api';
-
-export interface Plant {
-  id: number;
-  name: string;
-  scientific_name: string;
-  common_name?: string;
-  image_filename: string;
-  care_instructions?: string;
-}
 
 export const plantService = {
   getAllPlants: async (): Promise<Plant[]> => {

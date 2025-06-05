@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DashboardHeader from '../components/Dashboard/DashboardHeader';
 import { fetchPlants } from '../services/api';
 import { Plant } from '../types/plant';
 import PlantCard from '../components/Dashboard/PlantCard';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 const Home = () => {
+  const navigate = useNavigate();
   const [plants, setPlants] = useState<Plant[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -45,6 +48,25 @@ const Home = () => {
           ) : (
             <div>No plants found</div>
           )}
+        </div>
+      </div>
+
+      <div className="mt-12">
+        <div 
+          className="bg-white rounded-xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-shadow"
+          onClick={() => navigate('/help')}
+        >
+          <div className="flex items-center gap-4">
+            <div className="bg-green-100 p-3 rounded-full">
+              <HelpOutlineIcon className="text-green-600 text-3xl" />
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold text-green-800">Need Help?</h3>
+              <p className="text-green-700 mt-1">
+                Check out our help center for guides, FAQs, and support resources.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

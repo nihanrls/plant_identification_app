@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plant, plantService } from '../services/plantService';
+import { Plant } from '../types/plant';
+import { plantService } from '../services/plantService';
 import PlantList from '../components/Plants/PlantList';
 import LoadingSpinner from '../components/Common/LoadingSpinner';
 import ErrorMessage from '../components/Common/ErrorMessage';
@@ -34,7 +35,7 @@ const MyPlants: React.FC = () => {
   const handleViewDetails = (id: number) => {
     const plant = plants.find(p => p.id === id);
     if (plant) {
-      navigate(`/plants/${toSlug(plant.name)}`);
+      navigate(`/plants/${toSlug(plant.name || '')}`);
     }
   };
 

@@ -12,7 +12,7 @@ def generate_plant_care(scientific_name, common_name):
     print(f"Scientific Name: {scientific_name}")
 
     prompt = (
-        f"For the plant {scientific_name}, provide the most common English name that is used by the general public (not the scientific name). If there is no widely used common name, say 'No common name'. Then, give a short and concise care guide in 1-2 sentences. Format: Common Name: ... Care: ..."
+        f"For the plant {scientific_name}, provide the most common English name that is used by the general public (not the scientific name). If there is no widely used common name, say 'No common name'. Then, give a short and concise care guide in 3-4 sentences. Format: Common Name: ... Care: ..."
     )
 
     try:

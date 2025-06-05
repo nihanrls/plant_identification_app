@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plant } from '../../services/plantService';
+import { Plant } from '../../types/plant';
 import PlantCard from './PlantCard';
 import EmptyPlantList from './EmptyPlantList';
 
