@@ -35,12 +35,6 @@ export default function Sidebar() {
           path="/identify"
         />
         <SidebarItem 
-          icon="📅" 
-          label="Calendar" 
-          active={isActive('/calendar')} 
-          path="/calendar"
-        />
-        <SidebarItem 
           icon="❓" 
           label="Help" 
           active={isActive('/help')} 

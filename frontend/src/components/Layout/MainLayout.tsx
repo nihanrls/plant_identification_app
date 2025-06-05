@@ -4,7 +4,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Sidebar from '../Sidebar/Sidebar';
 import DashboardHeader from '../Dashboard/DashboardHeader';
 import PlantList from '../Dashboard/PlantList';
-import CalendarWidget from '../Dashboard/CalendarWidget';
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -47,7 +46,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             open={mobileOpen}
             onClose={handleDrawerToggle}
             ModalProps={{
-              keepMounted: true, // Better open performance on mobile
+              keepMounted: true,
             }}
             sx={{
               '& .MuiDrawer-paper': { 

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import DashboardHeader from '../components/Dashboard/DashboardHeader';
-import CalendarWidget from '../components/Dashboard/CalendarWidget';
 import { fetchPlants } from '../services/api';
 import { Plant } from '../types/plant';
 import PlantCard from '../components/Dashboard/PlantCard';
@@ -47,11 +46,6 @@ const Home = () => {
             <div>No plants found</div>
           )}
         </div>
-      </div>
-
-      <div className="mt-8">
-        <h2 className="text-2xl font-semibold mb-6">Upcoming Events</h2>
-        <CalendarWidget />
       </div>
     </div>
   );
