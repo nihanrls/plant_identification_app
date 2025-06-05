@@ -33,8 +33,7 @@ const IdentificationResult: React.FC<IdentificationResultProps> = ({
           
           <div className="space-y-6">
             <CareInstructions
-              watering={plant.watering}
-              environment={plant.environment}
+              careInstructions={plant.care_instructions}
             />
 
 

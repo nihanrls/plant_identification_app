@@ -29,11 +29,11 @@ def generate_plant_care(scientific_name, common_name):
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
-                {"role": "system", "content": "Sen bir bitki bakım uzmanısın. Verilen bitki için detaylı bakım talimatları sunacaksın."},
-                {"role": "user", "content": f"{scientific_name} bitkisinin bakımı hakkında detaylı bilgi ver. Sulama, güneş ışığı, toprak ve genel bakım talimatlarını içermeli."}
+                {"role": "system", "content": "You are a plant care expert. Always answer in English."},
+                {"role": "user", "content": f"Give a short and concise care guide for the plant {scientific_name} ({common_name}). Summarize the most important watering, light, and soil instructions in 1-2 sentences. Answer in English."}
             ],
             temperature=0.7,
-            max_tokens=500
+            max_tokens=200
         )
         text = response.choices[0].message.content
         print(f"\nOpenAI Response received: {text}")
@@ -47,17 +47,17 @@ def generate_plant_care(scientific_name, common_name):
         for line in lines:
             if line.startswith("Common Name:"):
                 common_name = line.replace("Common Name:", "").strip()
-            elif line.startswith("Watering:"):
-                watering = line.replace("Watering:", "").strip()
-            elif line.startswith("Environment:"):
-                environment = line.replace("Environment:", "").strip()
+            elif line.startswith("Watering:") or line.startswith("Sulama:"):
+                watering = line.replace("Watering:", "").replace("Sulama:", "").strip()
+            elif line.startswith("Environment:") or line.startswith("Güneş Işığı:"):
+                environment = line.replace("Environment:", "").replace("Güneş Işığı:", "").strip()
         
         print("\nParsed results:")
         print(f"Common Name: {common_name}")
         print(f"Watering: {watering}")
         print(f"Environment: {environment}")
         
-        return common_name, watering, environment
+        return common_name, watering, environment, text
 
     except Exception as e:
         print(f"\n=== ERROR OCCURRED ===")
@@ -71,4 +71,4 @@ def generate_plant_care(scientific_name, common_name):
             print(f"API Key length: {len(os.getenv('OPENAI_API_KEY', ''))}")
             print(f"API Key starts with: {os.getenv('OPENAI_API_KEY', '')[:8] + '...' if os.getenv('OPENAI_API_KEY') else 'None'}")
         
-        return common_name, "Could not retrieve watering information.", "Could not retrieve environment information."
+        return common_name, "", "", "Could not retrieve care instructions."

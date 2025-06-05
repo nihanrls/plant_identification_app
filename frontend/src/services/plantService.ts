@@ -10,6 +10,7 @@ export interface Plant {
   image_filename: string;
   watering: string;
   environment: string;
+  care_instructions?: string;
 }
 
 export const plantService = {
