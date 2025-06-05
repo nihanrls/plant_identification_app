@@ -37,7 +37,6 @@ const Help: React.FC = () => {
         Help Center
       </Typography>
 
-      {/* Usage Guide */}
       <Paper 
         sx={{ 
           p: 3, 
@@ -65,7 +64,7 @@ const Help: React.FC = () => {
             </ListItemIcon>
             <ListItemText
               primary="Plant Identification"
-              secondary="Click the 'Identify Plant' button on the home page or use the camera icon to upload an image from your gallery. The system will automatically identify the plant and show the results."
+              secondary="Click the 'Identify' button on the side menu and click the image icon to upload an image from your gallery. The system will identify the plant and show the results."
               primaryTypographyProps={{
                 sx: { fontFamily: 'Poppins, sans-serif', fontWeight: 500 }
               }}
@@ -98,7 +97,6 @@ const Help: React.FC = () => {
         </List>
       </Paper>
 
-      {/* Frequently Asked Questions */}
       <Typography 
         variant="h5" 
         gutterBottom
@@ -238,7 +236,6 @@ const Help: React.FC = () => {
         </Accordion>
       </Box>
 
-      {/* API References */}
       <Box sx={{ mt: 4 }}>
         <Typography 
           variant="h5" 
@@ -289,7 +286,6 @@ const Help: React.FC = () => {
         </Paper>
       </Box>
 
-      {/* Contact */}
       <Box sx={{ mt: 4, textAlign: 'center' }}>
         <Typography 
           variant="h6" 

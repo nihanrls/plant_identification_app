@@ -55,10 +55,10 @@ const MyPlants: React.FC = () => {
     <div className="container mx-auto px-4 py-8">
       <PageHeader
         title="My Plants"
-        actionButton={{
+        actionButton={plants.length > 0 ? {
           label: 'Add New Plant',
           onClick: handleAddPlant,
-        }}
+        } : undefined}
       />
 
       <PlantList
