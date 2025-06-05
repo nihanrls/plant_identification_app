@@ -39,13 +39,12 @@ def upload_file():
             scientific_name = species["scientificNameWithoutAuthor"]
             common_name = species.get("commonNames", [None])[0] or "Common Name Unknown"
 
-            new_common_name, watering, environment, care_instructions = generate_plant_care(scientific_name, common_name)
+            new_common_name, care_instructions = generate_plant_care(scientific_name, common_name)
             
             new_plant = Plant(
                 scientific_name=scientific_name,
                 common_name=new_common_name or common_name,
-                watering=watering,
-                environment=environment,
+                care_instructions=care_instructions,
                 image_filename=filename
             )
 
@@ -57,8 +56,6 @@ def upload_file():
                 "filename": filename,
                 "plant_name": scientific_name,
                 "common_name": new_common_name or common_name,
-                "watering": watering,
-                "environment": environment,
                 "care_instructions": care_instructions
             }), 200
         else:

@@ -8,8 +8,6 @@ export interface Plant {
   scientific_name: string;
   common_name?: string;
   image_filename: string;
-  watering: string;
-  environment: string;
   care_instructions?: string;
 }
 

@@ -45,8 +45,7 @@ def create_app():
                     'name': plant.common_name,
                     'scientific_name': plant.scientific_name,
                     'image_filename': plant.image_filename,
-                    'watering': plant.watering,
-                    'environment': plant.environment
+                    'care_instructions': plant.care_instructions
                 })
             
             return jsonify(plant_list)

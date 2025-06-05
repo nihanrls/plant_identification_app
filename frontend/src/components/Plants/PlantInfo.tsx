@@ -3,15 +3,13 @@ import React from 'react';
 interface PlantInfoProps {
   name: string;
   scientificName: string;
-  watering: string;
-  environment: string;
+  care_instructions: string;
 }
 
 const PlantInfo: React.FC<PlantInfoProps> = ({
   name,
   scientificName,
-  watering,
-  environment,
+  care_instructions,
 }) => {
   return (
     <div className="p-4">
@@ -23,10 +21,7 @@ const PlantInfo: React.FC<PlantInfoProps> = ({
       </p>
       <div className="space-y-2 mb-4">
         <p className="text-gray-700">
-          <span className="font-medium">Watering:</span> {watering}
-        </p>
-        <p className="text-gray-700">
-          <span className="font-medium">Environment:</span> {environment}
+          <span className="font-medium">Care Instructions:</span> {care_instructions}
         </p>
       </div>
     </div>

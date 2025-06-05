@@ -27,19 +27,14 @@ def upgrade():
                existing_type=sa.VARCHAR(length=128),
                type_=sa.String(length=256),
                existing_nullable=True)
-        batch_op.alter_column('watering',
-               existing_type=sa.VARCHAR(length=128),
-               type_=sa.String(length=512),
-               existing_nullable=True)
-        batch_op.alter_column('environment',
-               existing_type=sa.VARCHAR(length=128),
-               type_=sa.String(length=512),
-               existing_nullable=True)
         batch_op.alter_column('image_filename',
                existing_type=sa.VARCHAR(length=128),
                type_=sa.String(length=256),
                existing_nullable=True)
-
+        batch_op.alter_column('care_instructions',
+               existing_type=sa.VARCHAR(length=128),
+               type_=sa.String(length=512),
+               existing_nullable=True)
     # ### end Alembic commands ###
 
 
@@ -50,11 +45,7 @@ def downgrade():
                existing_type=sa.String(length=256),
                type_=sa.VARCHAR(length=128),
                existing_nullable=True)
-        batch_op.alter_column('environment',
-               existing_type=sa.String(length=512),
-               type_=sa.VARCHAR(length=128),
-               existing_nullable=True)
-        batch_op.alter_column('watering',
+        batch_op.alter_column('care_instructions',
                existing_type=sa.String(length=512),
                type_=sa.VARCHAR(length=128),
                existing_nullable=True)

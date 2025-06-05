@@ -7,8 +7,7 @@ interface Plant {
   name: string;
   scientific_name: string;
   image_filename: string;
-  watering: string;
-  environment: string;
+  care_instructions: string;
 }
 
 export default function PlantList() {
