@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardMedia, Typography, IconButton, Box } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { useFavorites } from '../../contexts/FavoritesContext';
+import { useFavorites } from '../../context/FavoritesContext';
 import { Plant } from '../../types/plant';
 import PlantActions from './PlantActions';
 

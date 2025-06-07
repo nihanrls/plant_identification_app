@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useFavorites } from '../../contexts/FavoritesContext';
+import { useFavorites } from '../../context/FavoritesContext';
 import { toSlug } from '../../utils/stringUtils';
 
 export default function Favorites() {
