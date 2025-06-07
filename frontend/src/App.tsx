@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { tr } from 'date-fns/locale';
-import { FavoritesProvider } from './contexts/FavoritesContext';
+import { FavoritesProvider } from './context/FavoritesContext';
 import MainLayout from './components/Layout/MainLayout';
 import Home from './pages/Home';
 import Identify from './pages/Identify';
@@ -47,6 +47,22 @@ const theme = createTheme({
 });
 
 function App() {
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        document.title = "Don't forget your plants!";
+      } else {
+        document.title = "Plantify";
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={tr}>
