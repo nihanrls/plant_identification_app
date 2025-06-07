@@ -29,7 +29,7 @@ def generate_plant_care(scientific_name, common_name):
         text = response.choices[0].message.content
         print(f"\nOpenAI Response received: {text}")
         
-        # Parse the response
+
         lines = text.strip().split('\n')
         common_name_parsed = ""
         care_instructions = ""
@@ -43,7 +43,6 @@ def generate_plant_care(scientific_name, common_name):
         if not care_instructions:
             care_instructions = text.strip()
         
-        # Eğer common name scientific name ile aynıysa:
         if common_name_parsed.lower() == scientific_name.lower():
             common_name_parsed = ""
         
