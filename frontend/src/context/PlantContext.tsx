@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { Plant, plantService } from '../services/plantService';
+import { plantService } from '../services/plantService';
+import { Plant } from '../types/plant';
 
 interface PlantContextType {
   plants: Plant[];
