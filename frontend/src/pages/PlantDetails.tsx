@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Plant, plantService } from '../services/plantService';
+import { plantService } from '../services/plantService';
+import { Plant } from '../types/plant';
 import LoadingSpinner from '../components/Common/LoadingSpinner';
 import ErrorMessage from '../components/Common/ErrorMessage';
 import { toSlug } from '../utils/stringUtils';
@@ -20,7 +21,7 @@ const PlantDetails: React.FC = () => {
       try {
         setLoading(true);
         const plants = await plantService.getAllPlants();
-        const foundPlant = plants.find(p => toSlug(p.name) === slug);
+        const foundPlant = plants.find(p => toSlug(p.name || '') === slug);
         
         if (foundPlant) {
           setPlant(foundPlant);
@@ -58,7 +59,7 @@ const PlantDetails: React.FC = () => {
         <div className="md:flex">
           <PlantImage
             imageFilename={plant.image_filename}
-            plantName={plant.name}
+            plantName={plant.name || ''}
           />
           
           <div className="md:w-1/2 p-8">

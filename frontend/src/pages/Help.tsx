@@ -23,19 +23,33 @@ import InfoIcon from '@mui/icons-material/Info';
 const Help: React.FC = () => {
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
-      <Typography 
-        variant="h4" 
-        component="h1" 
-        gutterBottom 
-        sx={{ 
-          fontFamily: 'Poppins, sans-serif',
-          fontWeight: 600,
-          color: '#2E7D32',
-          mb: 4
-        }}
-      >
-        Help Center
-      </Typography>
+      <Box sx={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        gap: 2,
+        mb: 4 
+      }}>
+        <img 
+          src="/plantifylogo.png" 
+          alt="Plantify Logo" 
+          style={{ 
+            width: '48px', 
+            height: '48px',
+            objectFit: 'contain'
+          }} 
+        />
+        <Typography 
+          variant="h4" 
+          component="h1" 
+          sx={{ 
+            fontFamily: 'Poppins, sans-serif',
+            fontWeight: 600,
+            color: 'black',
+          }}
+        >
+          Help Center
+        </Typography>
+      </Box>
 
       <Paper 
         sx={{ 
@@ -64,7 +78,7 @@ const Help: React.FC = () => {
             </ListItemIcon>
             <ListItemText
               primary="Plant Identification"
-              secondary="Click the 'Identify' button on the side menu and click the image icon to upload an image from your gallery. The system will identify the plant and show the results."
+              secondary="Click the 'Identify' button on the side menu and click the image icon to upload an image from your gallery. Then click the 'Identify Plant' button. The system will identify the plant and show the results."
               primaryTypographyProps={{
                 sx: { fontFamily: 'Poppins, sans-serif', fontWeight: 500 }
               }}
