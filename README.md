@@ -112,7 +112,7 @@ The frontend will run at http://localhost:3000.
 
 1. Go to http://localhost:3000 in your browser
 2. Navigate to the "Identify Plant" page
-3. Upload a plant photo
+3. Upload a plant photo (You can use plants from the test plants file.)
 4. Check the identification result
 
 ### 6. Development Tips
