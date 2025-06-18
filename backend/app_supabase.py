@@ -1,8 +1,11 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from dotenv import load_dotenv
 import os
+from extensions import db
 from config import Config
 from flask_cors import CORS
+from flask_migrate import Migrate
+from plant import Plant
 from werkzeug.utils import secure_filename
 from supabase_client import supabase_client
 import time
@@ -21,13 +24,15 @@ def create_app():
         }
     })
 
-    # Upload blueprint'i ekle
-    from upload_supabase import upload_bp
+    db.init_app(app)
+    migrate = Migrate(app, db)
+
+    from upload import upload_bp
     app.register_blueprint(upload_bp)
 
     @app.route("/")
     def home():
-        return "Welcome to the Plant Recognition Application (Supabase Only)"
+        return "Welcome to the Plant Recognition Application (Supabase)"
 
     @app.route('/api/plants/', methods=['GET'])
     def get_plants():
@@ -112,20 +117,11 @@ def create_app():
         except Exception as e:
             return jsonify({"error": str(e)}), 500
 
-    @app.route('/api/supabase-config')
-    def get_supabase_config():
-        """Frontend için Supabase konfigürasyonu döndür"""
-        try:
-            return jsonify({
-                "supabase_url": Config.SUPABASE_URL,
-                "storage_bucket": "plant-images"
-            })
-        except Exception as e:
-            return jsonify({"error": str(e)}), 500
-
     return app
 
 app = create_app()
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5001) 
+    with app.app_context():
+        db.create_all()
+    app.run(debug=True, port=5000) 

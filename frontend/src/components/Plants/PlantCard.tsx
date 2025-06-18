@@ -5,6 +5,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useFavorites } from '../../context/FavoritesContext';
 import { Plant } from '../../types/plant';
 import PlantActions from './PlantActions';
+import { getImageUrl } from '../../utils/imageUtils';
 
 interface PlantCardProps {
   plant: Plant;
@@ -21,11 +22,6 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onViewDetails }) => {
     } else {
       addToFavorites(plant);
     }
-  };
-
-  const getImageUrl = (filename: string | undefined) => {
-    if (!filename) return '/placeholder-plant.jpg';
-    return `http://127.0.0.1:5000/uploads/${filename}`;
   };
   
   return (
@@ -54,7 +50,7 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onViewDetails }) => {
             objectFit: 'cover',
           }}
           image={getImageUrl(plant.image_filename)}
-          alt={plant.name}
+          alt={plant.name || plant.common_name}
         />
       </Box>
       <CardContent sx={{ 
@@ -97,7 +93,7 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onViewDetails }) => {
             whiteSpace: 'nowrap',
           }}
         >
-          {plant.name}
+          {plant.name || plant.common_name}
         </Typography>
         <Typography 
           variant="body2" 

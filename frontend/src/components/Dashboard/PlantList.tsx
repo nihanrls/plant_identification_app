@@ -5,6 +5,7 @@ import { fetchPlants } from '../../services/api';
 interface Plant {
   id: number;
   name: string;
+  common_name: string;
   scientific_name: string;
   image_filename: string;
   care_instructions: string;
@@ -38,7 +39,7 @@ export default function PlantList() {
       {plants.map((plant) => (
         <PlantCard
           key={plant.id}
-          name={plant.name}
+          name={plant.name || plant.common_name}
           image={plant.image_filename}
           desc={plant.scientific_name}
         />

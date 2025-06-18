@@ -35,7 +35,8 @@ const MyPlants: React.FC = () => {
   const handleViewDetails = (id: number) => {
     const plant = plants.find(p => p.id === id);
     if (plant) {
-      navigate(`/plants/${toSlug(plant.name || '')}`);
+      const plantName = plant.name || plant.common_name || 'plant';
+      navigate(`/plants/${toSlug(plantName)}`);
     }
   };
 

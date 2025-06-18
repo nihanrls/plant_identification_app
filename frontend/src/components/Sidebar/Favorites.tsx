@@ -7,7 +7,8 @@ export default function Favorites() {
   const { favorites, clearFavorites } = useFavorites();
   const navigate = useNavigate();
 
-  const handlePlantClick = (plantName: string) => {
+  const handlePlantClick = (plant: any) => {
+    const plantName = plant.name || plant.common_name || 'plant';
     navigate(`/plants/${toSlug(plantName)}`);
   };
 
@@ -38,10 +39,10 @@ export default function Favorites() {
         {favorites.map((plant) => (
           <div
             key={plant.id}
-            onClick={() => handlePlantClick(plant.name || "")}
+            onClick={() => handlePlantClick(plant)}
             className="bg-accent text-green-800 px-3 py-2 rounded-xl text-sm cursor-pointer hover:bg-accent-dark transition-colors"
           >
-            {plant.name}
+            {plant.name || plant.common_name || 'Unknown Plant'}
           </div>
         ))}
       </div>

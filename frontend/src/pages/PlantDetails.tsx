@@ -21,7 +21,13 @@ const PlantDetails: React.FC = () => {
       try {
         setLoading(true);
         const plants = await plantService.getAllPlants();
-        const foundPlant = plants.find(p => toSlug(p.name || '') === slug);
+        
+        // Hem name hem de common_name ile slug eşleştirmesi yap
+        const foundPlant = plants.find(p => {
+          const nameSlug = toSlug(p.name || '');
+          const commonNameSlug = toSlug(p.common_name || '');
+          return nameSlug === slug || commonNameSlug === slug;
+        });
         
         if (foundPlant) {
           setPlant(foundPlant);
@@ -59,11 +65,13 @@ const PlantDetails: React.FC = () => {
         <div className="md:flex">
           <PlantImage
             imageFilename={plant.image_filename}
-            plantName={plant.name || ''}
+            plantName={plant.name || plant.common_name || ''}
           />
           
           <div className="md:w-1/2 p-8">
-            <h1 className="text-3xl font-bold text-green-800 mb-2">{plant.name}</h1>
+            <h1 className="text-3xl font-bold text-green-800 mb-2">
+              {plant.name || plant.common_name}
+            </h1>
             <p className="text-lg text-green-700 italic mb-6">{plant.scientific_name}</p>
             
             <div className="space-y-6">

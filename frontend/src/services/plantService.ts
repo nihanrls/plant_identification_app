@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Plant } from '../types/plant';
 
-const API_URL = 'http://127.0.0.1:5000/api';
+const API_URL = 'http://127.0.0.1:5001/api';
 
 export const plantService = {
   getAllPlants: async (): Promise<Plant[]> => {
@@ -22,7 +22,7 @@ export const plantService = {
     const formData = new FormData();
     formData.append('file', imageFile);
 
-    const response = await axios.post('http://127.0.0.1:5000/upload', formData, {
+    const response = await axios.post('http://127.0.0.1:5001/upload', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
