@@ -27,10 +27,8 @@ def upload_file():
 
     if file and allowed_file(file.filename):
         try:
-            # Geçici dosya olarak kaydet
             save_path, filename = save_uploaded_file(file, UPLOAD_FOLDER)
 
-            # Bitki tanımlama
             plant_data = identify_plant(save_path)
 
             if plant_data and plant_data.get("results"):
@@ -40,17 +38,13 @@ def upload_file():
                 scientific_name = species["scientificNameWithoutAuthor"]
                 common_name = species.get("commonNames", [None])[0] or "Common Name Unknown"
 
-                # Bakım talimatları üret
                 new_common_name, care_instructions = generate_plant_care(scientific_name, common_name)
                 
-                # Supabase Storage'a resim yükle
                 upload_result = supabase_client.upload_image(save_path, filename)
                 
                 if upload_result:
-                    # Geçici dosyayı sil
                     os.remove(save_path)
                     
-                    # Supabase Database'e bitki ekle
                     plant_data = {
                         "scientific_name": scientific_name,
                         "common_name": new_common_name or common_name,
@@ -74,7 +68,6 @@ def upload_file():
                 else:
                     return jsonify({"error": "Failed to upload image to cloud storage"}), 500
             else:
-                # Bitki tespit edilemedi
                 os.remove(save_path)
                 return jsonify({
                     "error": "No plant could be identified in the image. Please upload a different image."
@@ -83,7 +76,6 @@ def upload_file():
         except Exception as e:
             return jsonify({"error": f"Upload failed: {str(e)}"}), 500
 
-    # Geçersiz dosya formatı
     return jsonify({
         "error": "Invalid file type. Only PNG, JPG, JPEG, and GIF formats are supported.",
         "allowed_formats": ["png", "jpg", "jpeg", "gif"]

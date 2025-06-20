@@ -10,11 +10,9 @@ class SupabaseClient:
         )
     
     def get_plants(self):
-        """Tüm bitkileri getir"""
         try:
             response = self.supabase.table('plants').select('*').order('id', desc=True).execute()
             plants = response.data
-            # Her bitkiye image_url ekle
             for plant in plants:
                 image_filename = plant.get('image_filename')
                 if image_filename:
@@ -28,7 +26,6 @@ class SupabaseClient:
             return []
     
     def add_plant(self, plant_data):
-        """Yeni bitki ekle"""
         try:
             response = self.supabase.table('plants').insert(plant_data).execute()
             return response.data[0] if response.data else None
@@ -37,7 +34,6 @@ class SupabaseClient:
             return None
     
     def upload_image(self, file_path, file_name):
-        """Resmi Supabase Storage'a yükle"""
         try:
             with open(file_path, 'rb') as f:
                 response = self.supabase.storage.from_('plant-images').upload(
@@ -51,7 +47,6 @@ class SupabaseClient:
             return None
     
     def get_image_url(self, file_name):
-        """Resmin public URL'ini al"""
         try:
             response = self.supabase.storage.from_('plant-images').get_public_url(file_name)
             if isinstance(response, dict) and 'publicUrl' in response:
@@ -62,7 +57,6 @@ class SupabaseClient:
             return None
     
     def delete_plant(self, plant_id):
-        """Bitkiyi sil"""
         try:
             response = self.supabase.table('plants').delete().eq('id', plant_id).execute()
             return response.data
@@ -70,5 +64,4 @@ class SupabaseClient:
             print(f"Error deleting plant: {e}")
             return None
 
-# Global instance
 supabase_client = SupabaseClient() 

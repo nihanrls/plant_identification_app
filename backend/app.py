@@ -21,7 +21,7 @@ def create_app():
         }
     })
 
-    # Upload blueprint'i ekle
+
     from upload_supabase import upload_bp
     app.register_blueprint(upload_bp)
 
@@ -32,7 +32,6 @@ def create_app():
     @app.route('/api/plants/', methods=['GET'])
     def get_plants():
         try:
-            # Supabase'den bitkileri getir
             plants = supabase_client.get_plants()
             return jsonify(plants)
         except Exception as e:
@@ -42,7 +41,6 @@ def create_app():
     def add_plant():
         try:
             data = request.json
-            # Supabase'e bitki ekle
             plant = supabase_client.add_plant(data)
             if plant:
                 return jsonify({"message": "Plant added successfully", "data": plant}), 201
@@ -54,7 +52,6 @@ def create_app():
     @app.route('/api/plants/<int:plant_id>', methods=['DELETE'])
     def delete_plant(plant_id):
         try:
-            # Supabase'den bitkiyi sil
             result = supabase_client.delete_plant(plant_id)
             if result is not None:
                 return jsonify({"message": "Plant deleted successfully"}), 200
@@ -73,7 +70,6 @@ def create_app():
             return jsonify({"error": "No file selected"}), 400
 
         try:
-            # Geçici dosya olarak kaydet
             upload_folder = 'uploads'
             if not os.path.exists(upload_folder):
                 os.makedirs(upload_folder)
@@ -82,14 +78,11 @@ def create_app():
             temp_path = os.path.join(upload_folder, filename)
             file.save(temp_path)
 
-            # Supabase Storage'a yükle
             upload_result = supabase_client.upload_image(temp_path, filename)
             
             if upload_result:
-                # Geçici dosyayı sil
                 os.remove(temp_path)
                 
-                # Public URL al
                 image_url = supabase_client.get_image_url(filename)
                 
                 return jsonify({
@@ -106,7 +99,6 @@ def create_app():
     @app.route('/api/images/<filename>')
     def get_image_url(filename):
         try:
-            # Supabase'den resim URL'ini al
             image_url = supabase_client.get_image_url(filename)
             return jsonify({"url": image_url})
         except Exception as e:
@@ -114,7 +106,6 @@ def create_app():
 
     @app.route('/api/supabase-config')
     def get_supabase_config():
-        """Frontend için Supabase konfigürasyonu döndür"""
         try:
             return jsonify({
                 "supabase_url": Config.SUPABASE_URL,

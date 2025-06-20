@@ -65,6 +65,7 @@ const PlantDetails: React.FC = () => {
         <div className="md:flex">
           <PlantImage
             imageFilename={plant.image_filename}
+            imageUrl={plant.image_url}
             plantName={plant.name || plant.common_name || ''}
           />
           
