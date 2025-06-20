@@ -5,6 +5,7 @@ import { fetchPlants } from '../services/api';
 import { Plant } from '../types/plant';
 import PlantCard from '../components/Dashboard/PlantCard';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { getImageUrl } from '../utils/imageUtils';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ const Home = () => {
               <PlantCard
                 key={plant.id}
                 name={plant.common_name || plant.name || ''}
-                image={plant.image_filename}
+                image={plant.image_url || getImageUrl(plant.image_filename)}
                 desc={plant.scientific_name}
               />
             ))
