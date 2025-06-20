@@ -85,8 +85,15 @@ const Help: React.FC = () => {
           </ListItem>
           <ListItem>
             <ListItemIcon>
-              {/* Plant Search kaldırıldı */}
+              <InfoIcon sx={{ color: '#2E7D32' }} />
             </ListItemIcon>
+            <ListItemText
+              primary="My Plants"
+              secondary="The My Plants page displays all the plants you have identified and saved. You can view details, care instructions, and manage your collection from this page."
+              primaryTypographyProps={{
+                sx: { fontFamily: 'Poppins, sans-serif', fontWeight: 500 }
+              }}
+            />
           </ListItem>
           <ListItem>
             <ListItemIcon>
@@ -305,7 +312,7 @@ const Help: React.FC = () => {
           Have More Questions?
         </Typography>
         <Typography sx={{ fontFamily: 'Poppins, sans-serif' }}>
-          If you have any questions that are not answered here, please check our documentation or submit an issue on our GitHub repository.
+          If you have any questions that are not answered here, please submit an issue on our GitHub repository.
         </Typography>
       </Box>
     </Container>
