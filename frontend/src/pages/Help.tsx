@@ -247,6 +247,36 @@ const Help: React.FC = () => {
             </Typography>
           </AccordionDetails>
         </Accordion>
+
+        <Accordion 
+          sx={{ 
+            borderRadius: '12px !important',
+            '&:before': { display: 'none' },
+            boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+            '&.Mui-expanded': {
+              margin: '8px 0',
+            }
+          }}
+        >
+          <AccordionSummary 
+            expandIcon={<ExpandMoreIcon sx={{ color: '#2E7D32' }} />}
+            sx={{
+              borderRadius: '12px',
+              '&:hover': {
+                backgroundColor: 'rgba(46, 125, 50, 0.04)'
+              }
+            }}
+          >
+            <Typography sx={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500 }}>
+              Why do I get a plant name and description even when I upload a non-plant image?
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography sx={{ fontFamily: 'Poppins, sans-serif' }}>
+              The API we use for plant identification always tries to match the uploaded image to the closest plant in its database. Therefore, it assigns a plant name to every image, even if it is not a plant. We are working on improving this behavior in future updates.
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
       </Box>
 
       <Box sx={{ mt: 4 }}>
