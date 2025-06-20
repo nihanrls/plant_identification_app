@@ -74,12 +74,17 @@ def upload_file():
                 else:
                     return jsonify({"error": "Failed to upload image to cloud storage"}), 500
             else:
+                # Bitki tespit edilemedi
+                os.remove(save_path)
                 return jsonify({
-                    "message": "Image uploaded but no plant recognized",
-                    "filename": filename
-                }), 200
+                    "error": "No plant could be identified in the image. Please upload a different image."
+                }), 400
 
         except Exception as e:
             return jsonify({"error": f"Upload failed: {str(e)}"}), 500
 
-    return jsonify({"error": "Invalid file type. Only PNG/JPG/JPEG/GIF formats are allowed"}), 400 
+    # Geçersiz dosya formatı
+    return jsonify({
+        "error": "Invalid file type. Only PNG, JPG, JPEG, and GIF formats are supported.",
+        "allowed_formats": ["png", "jpg", "jpeg", "gif"]
+    }), 400 

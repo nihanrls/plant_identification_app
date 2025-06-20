@@ -13,7 +13,16 @@ class SupabaseClient:
         """Tüm bitkileri getir"""
         try:
             response = self.supabase.table('plants').select('*').order('id', desc=True).execute()
-            return response.data
+            plants = response.data
+            # Her bitkiye image_url ekle
+            for plant in plants:
+                image_filename = plant.get('image_filename')
+                if image_filename:
+                    image_url = self.get_image_url(image_filename)
+                    plant['image_url'] = image_url
+                else:
+                    plant['image_url'] = None
+            return plants
         except Exception as e:
             print(f"Error fetching plants: {e}")
             return []
@@ -45,6 +54,8 @@ class SupabaseClient:
         """Resmin public URL'ini al"""
         try:
             response = self.supabase.storage.from_('plant-images').get_public_url(file_name)
+            if isinstance(response, dict) and 'publicUrl' in response:
+                return response['publicUrl']
             return response
         except Exception as e:
             print(f"Error getting image URL: {e}")

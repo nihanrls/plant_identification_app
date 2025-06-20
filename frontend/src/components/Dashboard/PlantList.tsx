@@ -8,6 +8,7 @@ interface Plant {
   common_name: string;
   scientific_name: string;
   image_filename: string;
+  image_url: string;
   care_instructions: string;
 }
 
@@ -40,7 +41,7 @@ export default function PlantList() {
         <PlantCard
           key={plant.id}
           name={plant.name || plant.common_name}
-          image={plant.image_filename}
+          image={plant.image_url || plant.image_filename}
           desc={plant.scientific_name}
         />
       ))}

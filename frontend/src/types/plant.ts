@@ -6,5 +6,6 @@ export interface Plant {
   created_at: string;
   updated_at: string;
   image_filename: string;
+  image_url?: string;
   name?: string;
 } 

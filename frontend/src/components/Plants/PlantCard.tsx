@@ -49,7 +49,7 @@ const PlantCard: React.FC<PlantCardProps> = ({ plant, onViewDetails }) => {
             height: '100%',
             objectFit: 'cover',
           }}
-          image={getImageUrl(plant.image_filename)}
+          image={plant.image_url || getImageUrl(plant.image_filename)}
           alt={plant.name || plant.common_name}
         />
       </Box>
