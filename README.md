@@ -2,6 +2,10 @@
 
 A full-stack web application that allows users to identify plants from images and receive AI-powered care suggestions. Upload a photo, discover the plant species, and manage your own digital garden with personalized care tips.
 
+Make sure your that plant images are high quality.
+
+There are test images if you want. (They are my plants.)
+
 ## 🚀 Features
 
 - 📸 Upload plant photos to identify species
