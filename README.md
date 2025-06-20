@@ -11,7 +11,6 @@ There are test images if you want. (They are my plants.)
 - 📸 Upload plant photos to identify species
 - 🌱 Retrieve information about identified plants
 - 🤖 Get personalized plant care advice via OpenAI-powered chatbot
-- 📅 Manage plant care tasks and watering reminders
 - 🔐 API integration for image recognition and chatbot responses
 - 💾 Store plant data in cloud
 
