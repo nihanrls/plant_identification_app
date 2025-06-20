@@ -16,7 +16,6 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
-import SearchIcon from '@mui/icons-material/Search';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import InfoIcon from '@mui/icons-material/Info';
 
@@ -86,15 +85,8 @@ const Help: React.FC = () => {
           </ListItem>
           <ListItem>
             <ListItemIcon>
-              <SearchIcon sx={{ color: '#2E7D32' }} />
+              {/* Plant Search kaldırıldı */}
             </ListItemIcon>
-            <ListItemText
-              primary="Plant Search"
-              secondary="Use the search bar to search for plants by name or scientific name. Results will be listed instantly."
-              primaryTypographyProps={{
-                sx: { fontFamily: 'Poppins, sans-serif', fontWeight: 500 }
-              }}
-            />
           </ListItem>
           <ListItem>
             <ListItemIcon>
